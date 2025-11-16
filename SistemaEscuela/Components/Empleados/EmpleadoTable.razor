@@ -1,0 +1,69 @@
+﻿@using EL
+@using BL
+@inject EmpleadoService EmpleadosService
+
+<h4>Lista de Empleados</h4>
+
+@if (empleados == null)
+{
+    <p>Cargando...</p>
+}
+else if (!empleados.Any())
+{
+    <p>No hay empleados registrados.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Cédula</th>
+                <th>Departamento</th>
+                <th>Horario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in empleados)
+            {
+                <tr>
+                    <td>@emp.IdEmpleado</td>
+                    <td>@emp.Nombre</td>
+                    <td>@emp.Apellido</td>
+                    <td>@emp.CedulaNum</td>
+                    <td>@emp.IdDepartamento</td> <!-- muestra solo el Id real -->
+                    <td>@emp.IdHorario</td>      <!-- muestra solo el Id real -->
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick="() => EliminarEmpleado(emp)">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Empleado>? empleados;
+
+    protected override async Task OnInitializedAsync()
+    {
+        empleados = await EmpleadosService.ObtenerTodos();
+    }
+
+    private async Task EliminarEmpleado(Empleado emp)
+    {
+        if (emp != null)
+        {
+            await EmpleadosService.Eliminar(emp);
+            empleados = await EmpleadosService.ObtenerTodos();
+        }
+    }
+}
+
+
+
+
+

@@ -1,0 +1,11 @@
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\bin\Debug\net9.0\EL.deps.json
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\bin\Debug\net9.0\EL.dll
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\bin\Debug\net9.0\EL.pdb
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.GeneratedMSBuildEditorConfig.editorconfig
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.AssemblyInfoInputs.cache
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.AssemblyInfo.cs
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.csproj.CoreCompileInputs.cache
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.dll
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\refint\EL.dll
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.pdb
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\ref\EL.dll
