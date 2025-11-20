@@ -15,3 +15,4 @@ C:\PROJECTS\SistemaEscuela\SistemaEscuela\DAL\obj\Debug\net9.0\refint\DAL.dll
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\DAL\obj\Debug\net9.0\DAL.pdb
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\DAL\obj\Debug\net9.0\DAL.genruntimeconfig.cache
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\DAL\obj\Debug\net9.0\ref\DAL.dll
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\DAL\obj\Debug\net9.0\DAL.sourcelink.json

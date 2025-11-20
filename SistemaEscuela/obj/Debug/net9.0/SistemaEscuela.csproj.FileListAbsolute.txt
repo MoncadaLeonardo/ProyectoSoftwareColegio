@@ -124,3 +124,4 @@ C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\refint
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\SistemaEscuela.pdb
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\SistemaEscuela.genruntimeconfig.cache
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\ref\SistemaEscuela.dll
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\SistemaEscuela.sourcelink.json

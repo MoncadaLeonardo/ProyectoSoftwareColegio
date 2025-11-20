@@ -1,8 +1,10 @@
-﻿@using EL
+﻿@page "/empleados/list"
+@using EL
 @using BL
-@inject EmpleadoService EmpleadosService
+@inject EmpleadoService EmpleadoService
+@rendermode InteractiveServer   // ¡OBLIGATORIO!
 
-<h4>Lista de Empleados</h4>
+<h3>Lista de Empleados</h3>
 
 @if (empleados == null)
 {
@@ -18,11 +20,8 @@ else
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
+                <th>Nombre Completo</th>
                 <th>Cédula</th>
-                <th>Departamento</th>
-                <th>Horario</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -31,13 +30,13 @@ else
             {
                 <tr>
                     <td>@emp.IdEmpleado</td>
-                    <td>@emp.Nombre</td>
-                    <td>@emp.Apellido</td>
+                    <td>@emp.Nombre @emp.Apellido</td>
                     <td>@emp.CedulaNum</td>
-                    <td>@emp.IdDepartamento</td> <!-- muestra solo el Id real -->
-                    <td>@emp.IdHorario</td>      <!-- muestra solo el Id real -->
                     <td>
-                        <button class="btn btn-danger btn-sm" @onclick="() => EliminarEmpleado(emp)">Eliminar</button>
+                        <button class="btn btn-danger btn-sm"
+                                @onclick="() => EliminarEmpleado(emp.IdEmpleado)">
+                            Eliminar
+                        </button>
                     </td>
                 </tr>
             }
@@ -50,20 +49,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        empleados = await EmpleadosService.ObtenerTodos();
+        empleados = await EmpleadoService.ObtenerTodos();
     }
 
-    private async Task EliminarEmpleado(Empleado emp)
+    private async Task EliminarEmpleado(int idEmpleado)
     {
-        if (emp != null)
-        {
-            await EmpleadosService.Eliminar(emp);
-            empleados = await EmpleadosService.ObtenerTodos();
-        }
+        await EmpleadoService.Eliminar(idEmpleado);
+        empleados = await EmpleadoService.ObtenerTodos(); // recarga
+        StateHasChanged(); // por si acaso
     }
 }
-
-
 
 
 

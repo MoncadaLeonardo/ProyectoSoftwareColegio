@@ -1,0 +1,105 @@
+﻿@page "/empleados/nuevo"
+@page "/empleados/editar/{Id:int}"
+@using EL
+@using BL
+@inject EmpleadoService EmpleadoService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Editar" : "Nuevo") Empleado</PageTitle>
+
+<h3>@(Id.HasValue ? "Editar" : "Crear") Empleado</h3>
+
+<EditForm Model="@empleado" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Nombre</label>
+            <InputText @bind-Value="empleado.Nombre" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Apellido</label>
+            <InputText @bind-Value="empleado.Apellido" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Cédula</label>
+            <InputText @bind-Value="empleado.CedulaNum" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <InputText @bind-Value="empleado.Email" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Teléfono</label>
+            <InputText @bind-Value="empleado.Telefono" class="form-control" />
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">
+            Guardar
+        </button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">
+            Cancelar
+        </button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private Empleado empleado = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue && Id.Value > 0)
+        {
+            var existente = await EmpleadoService.ObtenerPorId(Id.Value);
+            if (existente != null)
+                empleado = existente;
+            else
+                Nav.NavigateTo("/empleados");
+        }
+    }
+
+    private async Task Guardar()
+    {
+        bool exito;
+
+        if (Id.HasValue && Id.Value > 0)
+        {
+            exito = await EmpleadoService.Actualizar(
+                Id.Value,
+                empleado.Nombre,
+                empleado.Apellido,
+                empleado.CedulaNum,
+                empleado.Email,
+                empleado.Telefono
+            );
+        }
+        else
+        {
+            await EmpleadoService.Agregar(
+                empleado.Nombre,
+                empleado.Apellido,
+                empleado.CedulaNum,
+                empleado.Email,
+                empleado.Telefono
+            );
+            exito = true;
+        }
+
+        if (exito)
+            Nav.NavigateTo("/empleados");
+    }
+
+    private void Cancelar() => Nav.NavigateTo("/empleados");
+}
