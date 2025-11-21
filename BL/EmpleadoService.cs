@@ -6,72 +6,59 @@ namespace BL
 {
     public class EmpleadoService
     {
-        private readonly IGenericRepository<Empleado> _repo;
+        private readonly IUnitOfWork _uow;
 
-        public EmpleadoService(IGenericRepository<Empleado> repo)
+        public EmpleadoService(IUnitOfWork uow)
         {
-            _repo = repo;
+            _uow = uow;
         }
 
-        // READ
         public async Task<List<Empleado>> ObtenerTodos()
-            => await _repo.GetAllAsync();
+            => await _uow.Empleados.GetAllAsync();
 
         public async Task<Empleado?> ObtenerPorId(int id)
-            => await _repo.GetByIdAsync(id);
+            => await _uow.Empleados.GetByIdAsync(id);
 
-        // CREATE - Recibe solo los datos necesarios (nunca la entidad completa)
-        public async Task<Empleado> Agregar(string nombre, string apellido, string cedulaNum,
-            string? email = null, string? telefono = null, int? idDepartamento = null, int? idHorario = null)
+        public async Task<Empleado> Agregar(Empleado empleado)
         {
-            var nuevo = new Empleado
-            {
-                Nombre = nombre.Trim(),
-                Apellido = apellido.Trim(),
-                CedulaNum = cedulaNum.Trim(),
-                Email = email?.Trim(),
-                Telefono = telefono?.Trim(),
-                IdDepartamento = idDepartamento,
-                IdHorario = idHorario,
-                FechaIngreso = DateTime.Today,
-                Activo = true,
-                FechaCreacion = DateTime.Now,
-                CreadoPor = "Sistema" // después lo sacás del usuario logueado
-            };
+            empleado.FechaCreacion = DateTime.Now;
+            empleado.CreadoPor = "Sistema"; // después lo sacas del usuario autenticado
+            empleado.Activo = true;
 
-            await _repo.AddAsync(nuevo);
-            return nuevo; // devuelve el empleado con Id generado
+            await _uow.Empleados.AddAsync(empleado);
+            await _uow.SaveChangesAsync();
+            return empleado;
         }
 
-        // UPDATE - Solo por ID + campos que cambian
-        public async Task<bool> Actualizar(int id, string nombre, string apellido, string cedulaNum,
-            string? email = null, string? telefono = null, int? idDepartamento = null, int? idHorario = null)
+        public async Task<bool> Actualizar(Empleado empleadoActualizado)
         {
-            var existente = await _repo.GetByIdAsync(id);
+            var existente = await _uow.Empleados.GetByIdAsync(empleadoActualizado.IdEmpleado);
             if (existente == null) return false;
 
-            // Solo modificamos lo que viene del formulario
-            existente.Nombre = nombre.Trim();
-            existente.Apellido = apellido.Trim();
-            existente.CedulaNum = cedulaNum.Trim();
-            existente.Email = email?.Trim();
-            existente.Telefono = telefono?.Trim();
-            existente.IdDepartamento = idDepartamento;
-            existente.IdHorario = idHorario;
+            // Actualizamos solo los campos que cambian
+            existente.Nombre = empleadoActualizado.Nombre.Trim();
+            existente.Apellido = empleadoActualizado.Apellido.Trim();
+            existente.CedulaNum = empleadoActualizado.CedulaNum.Trim();
+            existente.Email = empleadoActualizado.Email?.Trim();
+            existente.Telefono = empleadoActualizado.Telefono?.Trim();
+            existente.IdDepartamento = empleadoActualizado.IdDepartamento;
+            existente.IdHorario = empleadoActualizado.IdHorario;
+
             existente.FechaModificacion = DateTime.Now;
             existente.ModificadoPor = "Sistema";
 
-            await _repo.UpdateAsync(existente);
+            _uow.Empleados.Update(existente);
+            await _uow.SaveChangesAsync();
             return true;
         }
 
-        // DELETE - Ya te funcionaba, pero lo dejamos más limpio
         public async Task<bool> Eliminar(int id)
         {
-            var empleado = await _repo.GetByIdAsync(id);
+            var empleado = await _uow.Empleados.GetByIdAsync(id);
             if (empleado == null) return false;
 
-            await _repo.DeleteAsync(empleado);
+            _uow.Empleados.Delete(empleado);
+            await _uow.SaveChangesAsync();
             return true;
         }
     }

@@ -1,4 +1,4 @@
-html, body {
+﻿html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -57,4 +57,38 @@ h1:focus {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
+}
+
+/* MENÚ LATERAL – ICONOS GRANDES Y PERFECTAMENTE ALINEADOS */
+.sidebar .nav-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.9rem 1.4rem !important;
+    margin: 0.4rem 0.8rem !important;
+    border-radius: 0.6rem !important;
+    font-size: 1.05rem !important;
+    transition: all 0.25s ease !important;
+}
+
+    .sidebar .nav-link i {
+        font-size: 1.85rem !important; /* ← ICONO GRANDE Y BONITO */
+        width: 48px !important;
+        text-align: center !important;
+        margin-right: 14px !important;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.18) !important;
+        transform: translateX(6px);
+    }
+
+    .sidebar .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.28) !important;
+        font-weight: 600 !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
+
+.navbar-brand {
+    font-weight: 800 !important;
+    font-size: 1.5rem !important;
 }

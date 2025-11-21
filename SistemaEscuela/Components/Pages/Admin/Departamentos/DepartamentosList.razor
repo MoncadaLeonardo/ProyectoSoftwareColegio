@@ -1,0 +1,86 @@
+﻿@page "/admin/departamentos"
+@using EL
+@using BL
+@inject DepartamentoService DepartamentoService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+@* Comentado hasta que tengamos login *@
+@* @attribute [Authorize(Policy = "RequireAdministrator")] *@
+
+<PageTitle>Departamentos</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Gestión de Departamentos</h3>
+    <a href="/admin/departamentos/nuevo" class="btn btn-primary">
+        Nuevo Departamento
+    </a>
+</div>
+
+@if (departamentos == null)
+{
+    <p><em>Cargando departamentos...</em></p>
+}
+else if (!departamentos.Any())
+{
+    <div class="alert alert-info">No hay departamentos registrados.</div>
+}
+else
+{
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Fecha Creación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in departamentos)
+            {
+                <tr>
+                    <td>@d.NombreDepartamento</td>
+                    <td>
+                        <span class="badge @(d.Activo ? "bg-success" : "bg-secondary")">
+                            @(d.Activo ? "Activo" : "Inactivo")
+                        </span>
+                    </td>
+                    <td>@d.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a href="/admin/departamentos/editar/@d.IdDepartamento"
+                           class="btn btn-sm btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger ms-2"
+                                @onclick="() => Eliminar(d)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Departamento>? departamentos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        departamentos = await DepartamentoService.ObtenerTodosAsync();
+    }
+
+    private async Task Eliminar(Departamento dept)
+    {
+        bool confirmar = await JS.InvokeAsync<bool>("confirm",
+            $"¿Desactivar el departamento '{dept.NombreDepartamento}'?");
+
+        if (!confirmar) return;
+
+        dept.Activo = false;
+        await DepartamentoService.Actualizar(dept);  // ← Ahora sí funciona
+
+        // Recargar lista
+        departamentos = await DepartamentoService.ObtenerTodosAsync();
+    }
+}

@@ -1,21 +1,56 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">SistemaEscuela</a>
+        <a class="navbar-brand" href="">Sistema Colegio</a>
+        <button title="Menú" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            <NavLink class="nav令-link" href="" Match="NavLinkMatch.All">
+                <i class="bi bi-house-door-fill"></i> Inicio
             </NavLink>
         </div>
 
-        <NavLink class="nav-link" href="/empleados">Empleados</NavLink>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="empleados/list">
+                <i class="bi bi-people-fill"></i> Empleados
+            </NavLink>
+        </div>
+
+        <!-- ENLACE PRINCIPAL DE ADMINISTRACIÓN -->
+        <div class="nav-item px-3 mt-4">
+            <NavLink class="nav-link" href="admin" Match="NavLinkMatch.Prefix">
+                <i class="bi bi-gear-fill"></i> Administración
+            </NavLink>
+        </div>
+
+        <!-- OPCIONAL: puedes comentar estos si quieres que solo aparezcan en el dashboard -->
+        @* 
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="admin/departamentos">
+                <i class="bi bi-building"></i> Departamentos
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="admin/horarios">
+                <i class="bi bi-clock"></i> Horarios
+            </NavLink>
+        </div>
+        *@
+
     </nav>
 </div>
 
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

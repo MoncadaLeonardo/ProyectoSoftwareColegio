@@ -1,0 +1,113 @@
+﻿@page "/admin/departamentos/nuevo"
+@page "/admin/departamentos/editar/{Id:int}"
+@using EL
+@using BL
+@using Microsoft.AspNetCore.Authorization   @* ← ESTO ES LO QUE FALTABA *@
+@inject DepartamentoService DepartamentoService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+@* ← Solo descomenta cuando ya tengas login y roles *@
+@* @attribute [Authorize(Roles = "Administrador")] *@
+
+<PageTitle>@(Id.HasValue ? "Editar" : "Nuevo") Departamento</PageTitle>
+
+<h3 class="mb-4">@(Id.HasValue ? "Editar" : "Crear") Departamento</h3>
+
+<EditForm Model="departamento" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger mb-3" />
+
+    <div class="mb-3">
+        <label class="form-label">
+            Nombre del Departamento <span class="text-danger">*</span>
+        </label>
+        <InputText @bind-Value="departamento.NombreDepartamento"
+                   class="form-control"
+                   placeholder="Ej: Recursos Humanos" />
+        <ValidationMessage For="@(() => departamento.NombreDepartamento)" />
+    </div>
+
+    <div class="mb-3 form-check">
+        <InputCheckbox @bind-Value="departamento.Activo" class="form-check-input" />
+        <label class="form-check-label">Activo</label>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">
+            Guardar
+        </button>
+        <button type="button" class="btn btn-secondary ms-2"
+                @onclick="Cancelar">
+            Cancelar
+        </button>
+    </div>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(mensaje))
+{
+    <div class="alert alert-@(esError ? "danger" : "success") mt-4">
+        @mensaje
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private Departamento departamento = new();
+    private string? mensaje;
+    private bool esError;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue && Id.Value > 0)
+        {
+            var existente = await DepartamentoService.ObtenerPorId(Id.Value);
+            if (existente != null)
+            {
+                departamento = existente;
+            }
+            else
+            {
+                mensaje = "Departamento no encontrado.";
+                esError = true;
+            }
+        }
+        else
+        {
+            // Nuevo departamento
+            departamento = new Departamento
+            {
+                Activo = true,
+                FechaCreacion = DateTime.Now
+            };
+        }
+    }
+
+    private async Task Guardar()
+    {
+        bool exito;
+
+        if (Id.HasValue && Id.Value > 0)
+        {
+            exito = await DepartamentoService.Actualizar(departamento);
+            mensaje = exito ? "Departamento actualizado correctamente." : "Error al actualizar.";
+        }
+        else
+        {
+            var nuevo = await DepartamentoService.Crear(departamento);
+            exito = nuevo.IdDepartamento > 0;
+            mensaje = exito ? "Departamento creado exitosamente." : "Error al crear.";
+        }
+
+        esError = !exito;
+
+        if (exito)
+        {
+            await Task.Delay(800);
+            Nav.NavigateTo("/admin/departamentos");
+        }
+    }
+
+    private void Cancelar() => Nav.NavigateTo("/admin/departamentos");
+}

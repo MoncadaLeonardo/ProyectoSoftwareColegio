@@ -1,23 +1,50 @@
 ﻿@inherits LayoutComponentBase
 
+<!-- ICONOS + ESTILOS QUE SÍ FUNCIONAN AL 100% (dentro del componente) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+<style>
+    /* MENÚ LATERAL – ICONOS GRANDES Y PERFECTAMENTE ALINEADOS (100% garantizado) */
+    .sidebar .nav-link {
+        display: flex !important;
+        align-items: center !important; /* ← Alineación vertical perfecta */
+        padding: 0.85rem 1.4rem !important;
+        margin: 0.4rem 0.8rem !important;
+        border-radius: 0.6rem !important;
+        font-size: 1.05rem !important;
+        line-height: 1.4 !important; /* ← Esto es la clave */
+        transition: all 0.25s ease !important;
+    }
+
+        .sidebar .nav-link i {
+            font-size: 1.9rem !important; /* Icono grande */
+            width: 50px !important;
+            text-align: center !important;
+            margin-right: 14px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 100% !important;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            transform: translateX(6px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+            font-weight: 600 !important;
+        }
+</style>
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
         <article class="content px-4">
             @Body
         </article>
     </main>
-</div>
-
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
 </div>

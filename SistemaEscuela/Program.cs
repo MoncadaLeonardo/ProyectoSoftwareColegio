@@ -7,33 +7,33 @@ using SistemaEscuela.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. DbContext con la conexión correcta
-builder.Services.AddDbContext<AppDbContext>(options =>
+// 1. DbContext (sin AddDbContext, lo manejamos manualmente para control total)
+builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 
-// 2. REPOSITORIO GENÉRICO ABIERTO → ¡¡ESTO ES LO QUE TE FALTABA!!
+// 2. UnitOfWork y repositorios genéricos
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-// 3. Servicios de negocio (podes agregar más cuando quieras)
+// 3. Servicios de negocio
 builder.Services.AddScoped<EmpleadoService>();
-// builder.Services.AddScoped<DepartamentoService>();
-// builder.Services.AddScoped<HorarioService>();
-// etc...
 
-// 4. Blazor con Interactive Server (tu caso)
+builder.Services.AddScoped<DepartamentoService>();
+builder.Services.AddScoped<HorarioService>();
+
+// 4. Blazor Interactive Server
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// 5. (Opcional pero recomendado) Authentication & Authorization
-// Aunque no uses login aún, no hace daño y evita errores futuros
+// 5. Auth (por si acaso en el futuro)
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Pipeline obligatorio
+// Pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -42,22 +42,16 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
-// ¡¡IMPORTANTE!! Estos dos SIEMPRE van en este orden
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseAntiforgery();
 
-// Mapeo de Blazor
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-// Endpoint fallback (opcional pero recomendado)
 app.MapFallbackToFile("index.html");
 
 app.Run();
-
 

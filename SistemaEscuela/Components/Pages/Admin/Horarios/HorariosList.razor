@@ -1,0 +1,79 @@
+﻿@page "/admin/horarios"
+@using EL
+@using BL
+@inject HorarioService HorarioService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<PageTitle>Horarios</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Gestión de Horarios</h3>
+    <a href="/admin/horarios/nuevo" class="btn btn-primary">
+        Nuevo Horario
+    </a>
+</div>
+
+@if (horarios == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (!horarios.Any())
+{
+    <div class="alert alert-info">No hay horarios registrados.</div>
+}
+else
+{
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var h in horarios)
+            {
+                <tr>
+                    <td><strong>@h.NombreHorario</strong></td>
+                    <td>@h.HoraEntrada.ToString(@"hh\:mm")</td>
+                    <td>@h.HoraSalida.ToString(@"hh\:mm")</td>
+                    <td>
+                        <span class="badge @(h.Activo ? "bg-success" : "bg-secondary")">
+                            @(h.Activo ? "Activo" : "Inactivo")
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/admin/horarios/editar/@h.IdHorario" class="btn btn-sm btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger ms-2" @onclick="() => Desactivar(h)">
+                            Desactivar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Horario>? horarios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        horarios = await HorarioService.ObtenerTodosAsync();
+    }
+
+    private async Task Desactivar(Horario h)
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"¿Desactivar el horario '{h.NombreHorario}'?"))
+            return;
+
+        h.Activo = false;
+        await HorarioService.Actualizar(h);
+        horarios = await HorarioService.ObtenerTodosAsync();
+    }
+}

@@ -32,6 +32,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xFbXBsZWFkb3NcRW1wbGVhZG9UYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/AdminDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxBZG1pbkRhc2hib2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Departamentos/DepartamentoForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxEZXBhcnRhbWVudG9zXERlcGFydGFtZW50b0Zvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Departamentos/DepartamentosList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxEZXBhcnRhbWVudG9zXERlcGFydGFtZW50b3NMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Horarios/HorarioForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxIb3Jhcmlvc1xIb3JhcmlvRm9ybS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Horarios/HorariosList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxIb3Jhcmlvc1xIb3Jhcmlvc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Empleados.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFbXBsZWFkb3MucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

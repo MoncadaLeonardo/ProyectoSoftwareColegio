@@ -1,0 +1,91 @@
+﻿@page "/admin/horarios/nuevo"
+@page "/admin/horarios/editar/{Id:int}"
+@using EL
+@using BL
+@inject HorarioService HorarioService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id == null ? "Nuevo" : "Editar") Horario</PageTitle>
+
+<h3 class="mb-4">@(Id == null ? "Crear" : "Editar") Horario</h3>
+
+<EditForm Model="horario" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Nombre del Horario <span class="text-danger">*</span></label>
+        <InputText @bind-Value="horario.NombreHorario" class="form-control" />
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Hora de Entrada <span class="text-danger">*</span></label>
+            <input type="time" value="@horaEntradaStr" @onchange="e => horaEntradaStr = e.Value?.ToString() ?? string.Empty" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Hora de Salida <span class="text-danger">*</span></label>
+            <input type="time" value="@horaSalidaStr" @onchange="e => horaSalidaStr = e.Value?.ToString() ?? string.Empty" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-check mb-4">
+        <InputCheckbox @bind-Value="horario.Activo" class="form-check-input" id="chkActivo" />
+        <label class="form-check-label" for="chkActivo">Activo</label>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private Horario horario = new() { Activo = true };
+    private string horaEntradaStr = "07:00";
+    private string horaSalidaStr = "15:00";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue && Id.Value > 0)
+        {
+            var h = await HorarioService.ObtenerPorId(Id.Value);
+            if (h is not null)
+            {
+                horario = h;
+                horaEntradaStr = h.HoraEntrada.ToString(@"hh\:mm");
+                horaSalidaStr = h.HoraSalida.ToString(@"hh\:mm");
+            }
+        }
+        else
+        {
+            horario.HoraEntrada = TimeSpan.FromHours(7);
+            horario.HoraSalida = TimeSpan.FromHours(15);
+            horaEntradaStr = "07:00";
+            horaSalidaStr = "15:00";
+        }
+    }
+
+    private async Task Guardar()
+    {
+        // Conversión segura con valor por defecto si falla
+        if (!TimeSpan.TryParse(horaEntradaStr, out var entrada))
+            entrada = TimeSpan.FromHours(7);
+        if (!TimeSpan.TryParse(horaSalidaStr, out var salida))
+            salida = TimeSpan.FromHours(15);
+
+        horario.HoraEntrada = entrada;
+        horario.HoraSalida = salida;
+
+        bool exito = Id.HasValue
+            ? await HorarioService.Actualizar(horario)
+            : (await HorarioService.Crear(horario)).IdHorario > 0;
+
+        if (exito)
+            Nav.NavigateTo("/admin/horarios");
+    }
+
+    private void Cancelar() => Nav.NavigateTo("/admin/horarios");
+}
