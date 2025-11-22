@@ -1,0 +1,58 @@
+﻿@page "/admin/secciones/nuevo"
+@page "/admin/secciones/editar/{Id:int}"
+@using EL
+@using BL
+@inject SeccionService SeccionService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Editar" : "Nueva") Sección</PageTitle>
+
+<h3 class="mb-4">@(Id.HasValue ? "Editar" : "Crear") Sección</h3>
+
+<EditForm Model="seccion" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger mb-3" />
+
+    <div class="mb-3">
+        <label class="form-label">Nombre de la Sección <span class="text-danger">*</span></label>
+        <InputText @bind-Value="seccion.NombreSeccion" class="form-control" placeholder="Ej: A, B, Única, Mañana..." />
+    </div>
+
+    <div class="form-check mb-4">
+        <InputCheckbox @bind-Value="seccion.Activo" class="form-check-input" id="chkActivo" />
+        <label class="form-check-label" for="chkActivo">Activa</label>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Seccion seccion = new() { Activo = true };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue && Id.Value > 0)
+        {
+            var encontrada = await SeccionService.ObtenerPorId(Id.Value);
+            if (encontrada is not null)
+                seccion = encontrada;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        bool exito = Id.HasValue
+            ? await SeccionService.Actualizar(seccion)
+            : (await SeccionService.Crear(seccion)).IdSeccion > 0;
+
+        if (exito)
+            Nav.NavigateTo("/admin/secciones");
+    }
+
+    private void Cancelar() => Nav.NavigateTo("/admin/secciones");
+}

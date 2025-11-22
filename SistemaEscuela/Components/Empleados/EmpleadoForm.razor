@@ -2,45 +2,50 @@
 @page "/empleados/editar/{Id:int}"
 @using EL
 @using BL
+@using DAL
+
 @inject EmpleadoService EmpleadoService
 @inject DepartamentoService DepartamentoService
+@inject HorarioService HorarioService
+@inject RolService RolService
+@inject IUnitOfWork UoW
 @inject NavigationManager Nav
+
 @rendermode InteractiveServer
 
 <PageTitle>@(Id.HasValue ? "Editar" : "Nuevo") Empleado</PageTitle>
 
 <h3 class="mb-4">@(Id.HasValue ? "Editar" : "Crear") Empleado</h3>
 
-<EditForm Model="@empleado" OnValidSubmit="@Guardar">
+<EditForm Model="empleado" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <ValidationSummary class="text-danger mb-3" />
 
+    <!-- Nombre y Apellido -->
     <div class="row g-3 mb-3">
         <div class="col-md-6">
             <label class="form-label">Nombre <span class="text-danger">*</span></label>
             <InputText @bind-Value="empleado.Nombre" class="form-control" />
-            <ValidationMessage For="@(() => empleado.Nombre)" />
         </div>
         <div class="col-md-6">
             <label class="form-label">Apellido <span class="text-danger">*</span></label>
             <InputText @bind-Value="empleado.Apellido" class="form-control" />
-            <ValidationMessage For="@(() => empleado.Apellido)" />
         </div>
     </div>
 
+    <!-- Cédula y Email -->
     <div class="row g-3 mb-3">
         <div class="col-md-6">
             <label class="form-label">Cédula <span class="text-danger">*</span></label>
             <InputText @bind-Value="empleado.CedulaNum" class="form-control" />
-            <ValidationMessage For="@(() => empleado.CedulaNum)" />
         </div>
         <div class="col-md-6">
             <label class="form-label">Email</label>
             <InputText @bind-Value="empleado.Email" class="form-control" type="email" />
-            <ValidationMessage For="@(() => empleado.Email)" />
         </div>
     </div>
 
+    <!-- Teléfono y Departamento -->
     <div class="row g-3 mb-3">
         <div class="col-md-6">
             <label class="form-label">Teléfono</label>
@@ -48,124 +53,102 @@
         </div>
         <div class="col-md-6">
             <label class="form-label">Departamento</label>
-            @if (departamentos == null)
-            {
-                <div class="form-select text-muted">Cargando departamentos...</div>
-            }
-            else if (!departamentos.Any())
-            {
-                <div class="form-select text-warning">No hay departamentos activos</div>
-            }
-            else
-            {
-                <InputSelect @bind-Value="empleado.IdDepartamento" class="form-select">
-                    <option value="">-- Seleccionar departamento --</option>
-                    @foreach (var d in departamentos)
-                    {
-                        <option value="@d.IdDepartamento">@d.NombreDepartamento</option>
-                    }
-                </InputSelect>
-            }
+            <InputSelect @bind-Value="empleado.IdDepartamento" class="form-select">
+                <option value="0">-- Seleccionar --</option>
+                @foreach (var d in departamentos)
+                {
+                    <option value="@d.IdDepartamento">@d.NombreDepartamento</option>
+                }
+            </InputSelect>
         </div>
     </div>
 
+    <!-- Horario -->
+    <div class="mb-4">
+        <label class="form-label">Horario <span class="text-danger">*</span></label>
+        <InputSelect @bind-Value="horarioSeleccionado" class="form-select">
+            <option value="0">-- Seleccionar Horario --</option>
+            @foreach (var h in horarios)
+            {
+                <option value="@h.IdHorario">
+                    @h.NombreHorario (@h.HoraEntrada:hh\:mm - @h.HoraSalida:hh\:mm)
+                </option>
+            }
+        </InputSelect>
+    </div>
+
+    <!-- ROL (NUEVO) -->
+    <div class="mb-4">
+        <label class="form-label">Rol <span class="text-danger">*</span></label>
+        <InputSelect @bind-Value="rolSeleccionado" class="form-select">
+            <option value="0">-- Seleccionar Rol --</option>
+            @foreach (var r in roles)
+            {
+                <option value="@r.IdRol">@r.NombreRol</option>
+            }
+        </InputSelect>
+    </div>
+
     <div class="mt-4">
-        <button type="submit" class="btn btn-success" disabled="@isSaving">
-            @(isSaving ? "Guardando..." : "Guardar")
-        </button>
-        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar" disabled="@isSaving">
-            Cancelar
-        </button>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
     </div>
 </EditForm>
-
-@if (!string.IsNullOrEmpty(mensaje))
-{
-    <div class="alert alert-@(esError ? "danger" : "success") mt-4 alert-dismissible fade show">
-        @mensaje
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
 
 @code {
     [Parameter] public int? Id { get; set; }
 
     private Empleado empleado = new();
-    private List<Departamento>? departamentos;
-    private string? mensaje;
-    private bool esError = false;
-    private bool isSaving = false;
+    private List<Departamento> departamentos = new();
+    private List<Horario> horarios = new();
+    private List<Rol> roles = new();                    
+    private int horarioSeleccionado = 0;
+    private int rolSeleccionado = 0;                    
 
     protected override async Task OnInitializedAsync()
     {
-        // Carga departamentos una sola vez al iniciar el componente
         departamentos = await DepartamentoService.ObtenerActivosAsync();
+        horarios = await HorarioService.ObtenerActivosAsync();
+        roles = await RolService.ObtenerActivosAsync();  
     }
 
     protected override async Task OnParametersSetAsync()
     {
         if (Id.HasValue && Id.Value > 0)
         {
-            var existente = await EmpleadoService.ObtenerPorId(Id.Value);
-            if (existente != null)
-                empleado = existente;
-            else
+            var emp = await EmpleadoService.ObtenerPorId(Id.Value);
+            if (emp is not null)
             {
-                MostrarMensaje("Empleado no encontrado.", true);
-                Nav.NavigateTo("/empleados/list");
+                empleado = emp;
+
+                
+                var relHorario = await UoW.EmpleadoHorarios.GetAllAsync();
+                var actualHorario = relHorario.FirstOrDefault(eh => eh.IdEmpleado == Id.Value);
+                horarioSeleccionado = actualHorario?.IdHorario ?? 0;
+
+                
+                var relRol = await UoW.EmpleadoRoles.GetAllAsync();
+                var actualRol = relRol.FirstOrDefault(er => er.IdEmpleado == Id.Value);
+                rolSeleccionado = actualRol?.IdRol ?? 0;
             }
-        }
-        else
-        {
-            empleado = new Empleado { Activo = true, FechaIngreso = DateTime.Today };
         }
     }
 
     private async Task Guardar()
     {
-        if (isSaving) return;
-        isSaving = true;
-        mensaje = null;
-
-        try
+        if (horarioSeleccionado <= 0 || rolSeleccionado <= 0)
         {
-            bool exito;
+            
+            return;
+        }
 
-            if (Id.HasValue && Id.Value > 0)
-            {
-                empleado.IdEmpleado = Id.Value;
-                exito = await EmpleadoService.Actualizar(empleado);
-                MostrarMensaje(exito ? "Empleado actualizado correctamente." : "Error al actualizar.", !exito);
-            }
-            else
-            {
-                var nuevo = await EmpleadoService.Agregar(empleado);
-                exito = nuevo.IdEmpleado > 0;
-                MostrarMensaje(exito ? "Empleado creado exitosamente." : "Error al crear.", !exito);
-            }
+        bool exito = Id.HasValue
+            ? await EmpleadoService.Actualizar(empleado, horarioSeleccionado, rolSeleccionado)
+            : (await EmpleadoService.Agregar(empleado, horarioSeleccionado, rolSeleccionado)).IdEmpleado > 0;
 
-            if (exito)
-            {
-                await Task.Delay(800);
-                Nav.NavigateTo("/empleados/list");
-            }
-        }
-        catch (Exception ex)
-        {
-            MostrarMensaje($"Error inesperado: {ex.Message}", true);
-        }
-        finally
-        {
-            isSaving = false;
-        }
+        if (exito)
+            Nav.NavigateTo("/empleados/list");
     }
 
     private void Cancelar() => Nav.NavigateTo("/empleados/list");
-
-    private void MostrarMensaje(string texto, bool error = false)
-    {
-        mensaje = texto;
-        esError = error;
-        StateHasChanged();
-    }
 }

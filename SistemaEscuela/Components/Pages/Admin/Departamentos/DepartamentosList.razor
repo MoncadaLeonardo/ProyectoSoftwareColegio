@@ -6,7 +6,7 @@
 @inject IJSRuntime JS
 @rendermode InteractiveServer
 
-@* Comentado hasta que tengamos login *@
+@* temporal hasta que se definan los logins *@
 @* @attribute [Authorize(Policy = "RequireAdministrator")] *@
 
 <PageTitle>Departamentos</PageTitle>
@@ -78,9 +78,9 @@ else
         if (!confirmar) return;
 
         dept.Activo = false;
-        await DepartamentoService.Actualizar(dept);  // ← Ahora sí funciona
+        await DepartamentoService.Actualizar(dept);  
 
-        // Recargar lista
+        
         departamentos = await DepartamentoService.ObtenerTodosAsync();
     }
 }

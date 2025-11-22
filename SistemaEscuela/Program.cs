@@ -8,7 +8,7 @@ using SistemaEscuela.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. DbContext (sin AddDbContext, lo manejamos manualmente para control total)
-builder.Services.AddDbContextFactory<AppDbContext>(options =>
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
@@ -22,6 +22,9 @@ builder.Services.AddScoped<EmpleadoService>();
 
 builder.Services.AddScoped<DepartamentoService>();
 builder.Services.AddScoped<HorarioService>();
+builder.Services.AddScoped<AulaService>();
+builder.Services.AddScoped<SeccionService>();
+builder.Services.AddScoped<RolService>();
 
 // 4. Blazor Interactive Server
 builder.Services.AddRazorComponents()

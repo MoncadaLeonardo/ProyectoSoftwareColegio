@@ -109,7 +109,7 @@
         if (confirmar)
         {
             await EmpleadoService.Eliminar(id);
-            empleados = await EmpleadoService.ObtenerTodos();  // recarga la lista
+            empleados = await EmpleadoService.ObtenerTodos();  
         }
     }
 }

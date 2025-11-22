@@ -1,0 +1,75 @@
+﻿@page "/admin/roles"
+@using EL
+@using BL
+@inject RolService RolService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<PageTitle>Roles</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Gestión de Roles</h3>
+    <a href="/admin/roles/nuevo" class="btn btn-primary">
+        Nuevo Rol
+    </a>
+</div>
+
+@if (roles == null)
+{
+    <p><em>Cargando roles...</em></p>
+}
+else if (!roles.Any())
+{
+    <div class="alert alert-info">No hay roles registrados.</div>
+}
+else
+{
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in roles)
+            {
+                <tr>
+                    <td><strong>@r.NombreRol</strong></td>
+                    <td>
+                        <span class="badge @(r.Activo ? "bg-success" : "bg-secondary")">
+                            @(r.Activo ? "Activo" : "Inactivo")
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/admin/roles/editar/@r.IdRol" class="btn btn-sm btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger ms-2" @onclick="() => Desactivar(r)">
+                            Desactivar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Rol>? roles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        roles = await RolService.ObtenerTodosAsync();
+    }
+
+    private async Task Desactivar(Rol r)
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"¿Desactivar el rol '{r.NombreRol}'?"))
+            return;
+
+        r.Activo = false;
+        await RolService.Actualizar(r);
+        roles = await RolService.ObtenerTodosAsync();
+    }
+}

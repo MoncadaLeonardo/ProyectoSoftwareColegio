@@ -70,7 +70,7 @@
 
     private async Task Guardar()
     {
-        // Conversión segura con valor por defecto si falla
+        
         if (!TimeSpan.TryParse(horaEntradaStr, out var entrada))
             entrada = TimeSpan.FromHours(7);
         if (!TimeSpan.TryParse(horaSalidaStr, out var salida))

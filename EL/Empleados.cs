@@ -43,6 +43,8 @@ namespace EL
 
         [MaxLength(50)]
         public string? ModificadoPor { get; set; }
+
+        public virtual ICollection<EmpleadoRol> EmpleadoRoles { get; set; } = new List<EmpleadoRol>();
     }
 }
 

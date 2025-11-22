@@ -1,0 +1,58 @@
+﻿@page "/admin/aulas/nuevo"
+@page "/admin/aulas/editar/{Id:int}"
+@using EL
+@using BL
+@inject AulaService AulaService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Editar" : "Nueva") Aula</PageTitle>
+
+<h3 class="mb-4">@(Id.HasValue ? "Editar" : "Crear") Aula</h3>
+
+<EditForm Model="aula" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger mb-3" />
+
+    <div class="mb-3">
+        <label class="form-label">Nombre del Aula <span class="text-danger">*</span></label>
+        <InputText @bind-Value="aula.NombreAula" class="form-control" placeholder="Ej: Aula 101, Laboratorio, Biblioteca..." />
+    </div>
+
+    <div class="form-check mb-4">
+        <InputCheckbox @bind-Value="aula.Activo" class="form-check-input" id="chkActivo" />
+        <label class="form-check-label" for="chkActivo">Activa</label>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Aula aula = new() { Activo = true };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue && Id.Value > 0)
+        {
+            var encontrada = await AulaService.ObtenerPorId(Id.Value);
+            if (encontrada is not null)
+                aula = encontrada;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        bool exito = Id.HasValue
+            ? await AulaService.Actualizar(aula)
+            : (await AulaService.Crear(aula)).IdAula > 0;
+
+        if (exito)
+            Nav.NavigateTo("/admin/aulas");
+    }
+
+    private void Cancelar() => Nav.NavigateTo("/admin/aulas");
+}

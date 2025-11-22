@@ -18,6 +18,8 @@ namespace DAL
         IGenericRepository<Usuario> Usuarios { get; }
         IGenericRepository<EmpleadoHorario> EmpleadoHorarios { get; }
 
+        IGenericRepository<EmpleadoRol> EmpleadoRoles { get; }
+
         Task<int> SaveChangesAsync();
     }
 }

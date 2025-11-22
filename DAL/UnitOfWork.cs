@@ -5,8 +5,9 @@ namespace DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context; // ← CORREGIDO
 
+        // Repositorios
         public IGenericRepository<Empleado> Empleados { get; private set; }
         public IGenericRepository<Departamento> Departamentos { get; private set; }
         public IGenericRepository<Rol> Roles { get; private set; }
@@ -19,23 +20,26 @@ namespace DAL
         public IGenericRepository<AsignacionProfesor> AsignacionProfesores { get; private set; }
         public IGenericRepository<Usuario> Usuarios { get; private set; }
         public IGenericRepository<EmpleadoHorario> EmpleadoHorarios { get; private set; }
+        public IGenericRepository<EmpleadoRol> EmpleadoRoles { get; private set; }
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
 
-            Empleados = new GenericRepository<Empleado>(context);
-            Departamentos = new GenericRepository<Departamento>(context);
-            Roles = new GenericRepository<Rol>(context);
-            Horarios = new GenericRepository<Horario>(context);
-            Aulas = new GenericRepository<Aula>(context);
-            Secciones = new GenericRepository<Seccion>(context);
-            EstadoSolicitudes = new GenericRepository<EstadoSolicitud>(context);
-            Vacaciones = new GenericRepository<Vacacion>(context);
-            SolicitudVacaciones = new GenericRepository<SolicitudVacacion>(context);
-            AsignacionProfesores = new GenericRepository<AsignacionProfesor>(context);
-            Usuarios = new GenericRepository<Usuario>(context);
-            EmpleadoHorarios = new GenericRepository<EmpleadoHorario>(context);
+            // Inicializar todos los repositorios
+            Empleados = new GenericRepository<Empleado>(_context);
+            Departamentos = new GenericRepository<Departamento>(_context);
+            Roles = new GenericRepository<Rol>(_context);
+            Horarios = new GenericRepository<Horario>(_context);
+            Aulas = new GenericRepository<Aula>(_context);
+            Secciones = new GenericRepository<Seccion>(_context);
+            EstadoSolicitudes = new GenericRepository<EstadoSolicitud>(_context);
+            Vacaciones = new GenericRepository<Vacacion>(_context);
+            SolicitudVacaciones = new GenericRepository<SolicitudVacacion>(_context);
+            AsignacionProfesores = new GenericRepository<AsignacionProfesor>(_context);
+            Usuarios = new GenericRepository<Usuario>(_context);
+            EmpleadoHorarios = new GenericRepository<EmpleadoHorario>(_context);
+            EmpleadoRoles = new GenericRepository<EmpleadoRol>(_context); // ← AHORA SÍ
         }
 
         public async Task<int> SaveChangesAsync()

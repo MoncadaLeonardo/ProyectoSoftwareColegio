@@ -1,0 +1,58 @@
+﻿@page "/admin/roles/nuevo"
+@page "/admin/roles/editar/{Id:int}"
+@using EL
+@using BL
+@inject RolService RolService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>@(Id.HasValue ? "Editar" : "Nuevo") Rol</PageTitle>
+
+<h3 class="mb-4">@(Id.HasValue ? "Editar" : "Crear") Rol</h3>
+
+<EditForm Model="rol" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger mb-3" />
+
+    <div class="mb-3">
+        <label class="form-label">Nombre del Rol <span class="text-danger">*</span></label>
+        <InputText @bind-Value="rol.NombreRol" class="form-control" placeholder="Ej: Administrador, Docente, Secretaria..." />
+    </div>
+
+    <div class="form-check mb-4">
+        <InputCheckbox @bind-Value="rol.Activo" class="form-check-input" id="chkActivo" />
+        <label class="form-check-label" for="chkActivo">Activo</label>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private Rol rol = new() { Activo = true };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id.HasValue && Id.Value > 0)
+        {
+            var encontrado = await RolService.ObtenerPorId(Id.Value);
+            if (encontrado is not null)
+                rol = encontrado;
+        }
+    }
+
+    private async Task Guardar()
+    {
+        bool exito = Id.HasValue
+            ? await RolService.Actualizar(rol)
+            : (await RolService.Crear(rol)).IdRol > 0;
+
+        if (exito)
+            Nav.NavigateTo("/admin/roles");
+    }
+
+    private void Cancelar() => Nav.NavigateTo("/admin/roles");
+}

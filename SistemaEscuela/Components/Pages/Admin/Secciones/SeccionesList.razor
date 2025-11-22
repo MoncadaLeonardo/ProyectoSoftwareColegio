@@ -1,0 +1,75 @@
+﻿@page "/admin/secciones"
+@using EL
+@using BL
+@inject SeccionService SeccionService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<PageTitle>Secciones</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Gestión de Secciones</h3>
+    <a href="/admin/secciones/nuevo" class="btn btn-primary">
+        Nueva Sección
+    </a>
+</div>
+
+@if (secciones == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (!secciones.Any())
+{
+    <div class="alert alert-info">No hay secciones registradas.</div>
+}
+else
+{
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Sección</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in secciones)
+            {
+                <tr>
+                    <td><strong>@s.NombreSeccion</strong></td>
+                    <td>
+                        <span class="badge @(s.Activo ? "bg-success" : "bg-secondary")">
+                            @(s.Activo ? "Activa" : "Inactiva")
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/admin/secciones/editar/@s.IdSeccion" class="btn btn-sm btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger ms-2" @onclick="() => Desactivar(s)">
+                            Desactivar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Seccion>? secciones;
+
+    protected override async Task OnInitializedAsync()
+    {
+        secciones = await SeccionService.ObtenerTodosAsync();
+    }
+
+    private async Task Desactivar(Seccion s)
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"¿Desactivar la sección '{s.NombreSeccion}'?"))
+            return;
+
+        s.Activo = false;
+        await SeccionService.Actualizar(s);
+        secciones = await SeccionService.ObtenerTodosAsync();
+    }
+}

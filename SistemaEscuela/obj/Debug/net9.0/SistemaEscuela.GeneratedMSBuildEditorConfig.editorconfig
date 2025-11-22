@@ -36,6 +36,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxBZG1pbkRhc2hib2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Aulas/AulaForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxBdWxhc1xBdWxhRm9ybS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Aulas/AulasList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxBdWxhc1xBdWxhc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Departamentos/DepartamentoForm.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxEZXBhcnRhbWVudG9zXERlcGFydGFtZW50b0Zvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -50,6 +58,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Horarios/HorariosList.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxIb3Jhcmlvc1xIb3Jhcmlvc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Roles/RolesList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSb2xlc1xSb2xlc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Roles/RolForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSb2xlc1xSb2xGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Secciones/SeccionesList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxTZWNjaW9uZXNcU2VjY2lvbmVzTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Admin/Secciones/SeccionForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxTZWNjaW9uZXNcU2VjY2lvbkZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Empleados.razor]

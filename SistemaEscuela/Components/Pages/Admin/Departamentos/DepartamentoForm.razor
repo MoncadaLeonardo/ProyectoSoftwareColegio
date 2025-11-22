@@ -2,13 +2,12 @@
 @page "/admin/departamentos/editar/{Id:int}"
 @using EL
 @using BL
-@using Microsoft.AspNetCore.Authorization   @* ← ESTO ES LO QUE FALTABA *@
+@using Microsoft.AspNetCore.Authorization   
 @inject DepartamentoService DepartamentoService
 @inject NavigationManager Nav
 @rendermode InteractiveServer
 
-@* ← Solo descomenta cuando ya tengas login y roles *@
-@* @attribute [Authorize(Roles = "Administrador")] *@
+
 
 <PageTitle>@(Id.HasValue ? "Editar" : "Nuevo") Departamento</PageTitle>
 
@@ -75,7 +74,7 @@
         }
         else
         {
-            // Nuevo departamento
+            
             departamento = new Departamento
             {
                 Activo = true,

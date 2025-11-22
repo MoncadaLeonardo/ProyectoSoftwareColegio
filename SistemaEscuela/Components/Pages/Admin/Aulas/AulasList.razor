@@ -1,0 +1,75 @@
+﻿@page "/admin/aulas"
+@using EL
+@using BL
+@inject AulaService AulaService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<PageTitle>Aulas</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Gestión de Aulas</h3>
+    <a href="/admin/aulas/nuevo" class="btn btn-primary">
+        Nueva Aula
+    </a>
+</div>
+
+@if (aulas == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else if (!aulas.Any())
+{
+    <div class="alert alert-info">No hay aulas registradas.</div>
+}
+else
+{
+    <table class="table table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Aula</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in aulas)
+            {
+                <tr>
+                    <td><strong>@a.NombreAula</strong></td>
+                    <td>
+                        <span class="badge @(a.Activo ? "bg-success" : "bg-secondary")">
+                            @(a.Activo ? "Activa" : "Inactiva")
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/admin/aulas/editar/@a.IdAula" class="btn btn-sm btn-warning">Editar</a>
+                        <button class="btn btn-sm btn-danger ms-2" @onclick="() => Desactivar(a)">
+                            Desactivar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Aula>? aulas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        aulas = await AulaService.ObtenerTodosAsync();
+    }
+
+    private async Task Desactivar(Aula a)
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"¿Desactivar el aula '{a.NombreAula}'?"))
+            return;
+
+        a.Activo = false;
+        await AulaService.Actualizar(a);
+        aulas = await AulaService.ObtenerTodosAsync();
+    }
+}
