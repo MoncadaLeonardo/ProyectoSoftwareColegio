@@ -10,3 +10,4 @@ C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\refint\EL.dll
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.pdb
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\ref\EL.dll
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.sourcelink.json
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.csproj.AssemblyReference.cache

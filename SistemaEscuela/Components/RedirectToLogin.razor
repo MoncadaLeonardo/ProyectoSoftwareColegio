@@ -1,0 +1,13 @@
+﻿@inject NavigationManager Navigation
+
+@code {
+    protected override void OnInitialized()
+    {
+        // 1. Captura la URL actual para que el usuario regrese después de logearse.
+        var currentUri = Navigation.ToAbsoluteUri(Navigation.Uri).PathAndQuery;
+
+        // 2. Redirige a la página de login, forzando una recarga completa del navegador.
+        // La redirección fuerza una nueva solicitud HTTP, rompiendo el ciclo de Blazor.
+        Navigation.NavigateTo($"/login?returnUrl={currentUri}", forceLoad: true);
+    }
+}

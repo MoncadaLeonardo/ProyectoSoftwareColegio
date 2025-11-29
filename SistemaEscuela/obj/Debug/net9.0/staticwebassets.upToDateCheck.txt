@@ -15,6 +15,7 @@ C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\d
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\site.js
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
@@ -89,3 +90,4 @@ wwwroot\lib\bootstrap\dist\js\bootstrap.js
 wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
 wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+wwwroot\site.js

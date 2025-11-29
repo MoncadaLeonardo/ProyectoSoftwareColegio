@@ -125,3 +125,4 @@ C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\Sistem
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\ref\SistemaEscuela.dll
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\SistemaEscuela.sourcelink.json
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\compressed\pvjelaltqm-jf7dzlztmj.gz
+C:\PROJECTS\SistemaEscuela\SistemaEscuela\SistemaEscuela\obj\Debug\net9.0\compressed\c9gsnkuku3-4dwootgw68.gz

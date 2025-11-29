@@ -76,6 +76,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxTZWNjaW9uZXNcU2VjY2lvbkZvcm0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Authentication/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoZW50aWNhdGlvblxMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Authentication/LoginDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoZW50aWNhdGlvblxMb2dpbkRpc3BsYXkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Authentication/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoZW50aWNhdGlvblxMb2dvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Authentication/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBdXRoZW50aWNhdGlvblxSZWRpcmVjdFRvTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Empleados.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFbXBsZWFkb3MucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,6 +102,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSZWRpcmVjdFRvTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/PROJECTS/SistemaEscuela/SistemaEscuela/SistemaEscuela/Components/Routes.razor]

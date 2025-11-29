@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EL
@@ -14,23 +13,30 @@ namespace EL
         public int IdEmpleado { get; set; }
 
         [Required]
+        [Column("Usuario")]
         [MaxLength(50)]
-        public string UsuarioNombre { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
         [Required]
-        public byte[] Contrasena { get; set; } = Array.Empty<byte>();
+        [Column("Contrasena")]
+        public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
 
         public bool Activo { get; set; } = true;
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 
         [MaxLength(50)]
         public string? CreadoPor { get; set; }
-
         public DateTime? FechaModificacion { get; set; }
-
         [MaxLength(50)]
         public string? ModificadoPor { get; set; }
 
+        [Column("IdRoles")]
         public int? IdRoles { get; set; }
+
+        [ForeignKey("IdEmpleado")]
+        public virtual Empleado? Empleado { get; set; }
+
+        [ForeignKey("IdRoles")]
+        public virtual Rol? Rol { get; set; }
     }
 }

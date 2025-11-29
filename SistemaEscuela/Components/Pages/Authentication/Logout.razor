@@ -1,0 +1,34 @@
+﻿@page "/logout"
+@rendermode InteractiveServer
+@using Microsoft.JSInterop
+
+<div class="text-center mt-5">
+    <h3>Cerrando Sesión...</h3>
+    <p>Serás redirigido en breve.</p>
+</div>
+
+<form method="post" action="/logout-handler" id="logoutForm">
+    <AntiforgeryToken />
+</form>
+
+@code {
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) // 🚨 Usar OnAfterRenderAsync
+    {
+        if (firstRender)
+        {
+            try
+            {
+                // 🚨 LLAMADA A LA FUNCIÓN JS AISLADA
+                await JSRuntime.InvokeVoidAsync("SistemaEscuela.submitLogoutForm", "logoutForm");
+            }
+            catch (Exception ex)
+            {
+                // Si esto falla, el error aparecerá en la consola del navegador.
+                Console.WriteLine($"Error al enviar formulario de logout: {ex.Message}");
+            }
+        }
+    }
+}

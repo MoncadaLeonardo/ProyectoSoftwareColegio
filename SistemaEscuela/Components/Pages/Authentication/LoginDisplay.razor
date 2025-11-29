@@ -1,0 +1,18 @@
+﻿@namespace SistemaEscuela.Components.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView>
+    <Authorized>
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-white">Hola, <strong>@context.User.Identity?.Name</strong></span>
+            <a href="/logout" class="btn btn-outline-light btn-sm">
+                Cerrar sesión
+            </a>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <a href="/login" class="btn btn-outline-light btn-sm">
+            Iniciar sesión
+        </a>
+    </NotAuthorized>
+</AuthorizeView>
