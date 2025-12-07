@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\DAL\\DAL.csproj": {}
+    "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\DAL\\DAL.csproj": {}
   },
   "projects": {
-    "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\DAL\\DAL.csproj": {
+    "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\DAL\\DAL.csproj",
+        "projectUniqueName": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\usuARIO\\.nuget\\packages\\",
-        "outputPath": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\DAL\\obj\\",
+        "projectPath": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\leona\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\usuARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leona\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\EL\\EL.csproj": {
-                "projectPath": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\EL\\EL.csproj"
+              "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\EL\\EL.csproj": {
+                "projectPath": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\EL\\EL.csproj"
               }
             }
           }
@@ -49,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -96,24 +95,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\EL\\EL.csproj": {
+    "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\EL\\EL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\EL\\EL.csproj",
+        "projectUniqueName": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\EL\\EL.csproj",
         "projectName": "EL",
-        "projectPath": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\EL\\EL.csproj",
-        "packagesPath": "C:\\Users\\usuARIO\\.nuget\\packages\\",
-        "outputPath": "C:\\PROJECTS\\SistemaEscuela\\SistemaEscuela\\EL\\obj\\",
+        "projectPath": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\EL\\EL.csproj",
+        "packagesPath": "C:\\Users\\leona\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\leona\\Desktop\\proyecto_clases\\SistemaEscuela\\EL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\usuARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leona\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -122,7 +121,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -141,7 +139,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -168,7 +166,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

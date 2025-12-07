@@ -98,7 +98,7 @@ app.MapPost("/login-handler", async (
     if (usuario == null)
     {
         // Fallo: Redirige de vuelta con mensaje de error
-        return Results.Redirect("/login?ErrorMessage=Usuario+o+contraseña+incorrectos");
+        return Results.Redirect("/login?ErrorMessage=Usuario+o+contrasena+incorrectos");
     }
 
     // 2. Crear Principal y SignIn

@@ -11,3 +11,16 @@ C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.pdb
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\ref\EL.dll
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.sourcelink.json
 C:\PROJECTS\SistemaEscuela\SistemaEscuela\EL\obj\Debug\net9.0\EL.csproj.AssemblyReference.cache
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\bin\Debug\net9.0\EL.deps.json
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\bin\Debug\net9.0\EL.dll
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\bin\Debug\net9.0\EL.pdb
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.csproj.AssemblyReference.cache
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.AssemblyInfoInputs.cache
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.AssemblyInfo.cs
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.csproj.CoreCompileInputs.cache
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.sourcelink.json
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.dll
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\refint\EL.dll
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\EL.pdb
+C:\Users\leona\Desktop\proyecto_clases\SistemaEscuela\EL\obj\Debug\net9.0\ref\EL.dll
